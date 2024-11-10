@@ -121,14 +121,7 @@
   <div>
       <!-- ko if: showIdentityBanner() && (sharedData.displayName || svr.sPOST_Username) --><!-- /ko -->
   
-      <div class="pagination-view animate slide-in-next" data-bind="css: {
-          'has-identity-banner': showIdentityBanner() &amp;&amp; (sharedData.displayName || svr.sPOST_Username),
-          'zero-opacity': hidePaginatedView.hideSubView(),
-          'animate': animate(),
-          'slide-out-next': animate.isSlideOutNext(),
-          'slide-in-next': animate.isSlideInNext(),
-          'slide-out-back': animate.isSlideOutBack(),
-          'slide-in-back': animate.isSlideInBack() }">
+      <div class="pagination-view animate slide-in-next">
   
           <!-- ko foreach: views -->
               <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
