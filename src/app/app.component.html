@@ -123,7 +123,10 @@
   
       <!-- How are you -->
 
-      <div data-bind="css: { 'zero-opacity': hidePaginatedView() }" class="">
+      <div
+        *ngIf="isAccountSelected"
+        class=""
+        >
         <!-- ko if: showIdentityBanner() && (sharedData.displayName || svr.sPOST_Username) -->
         <div data-bind="css: {
             'animate': animate() &amp;&amp; animate.animateBanner(),
@@ -144,12 +147,13 @@
     
     <div class="identityBanner">
         <!-- ko if: isBackButtonVisible -->
-        <button type="button" class="backButton" data-bind="
-            attr: { 'id': backButtonId || 'idBtn_Back' },
-            ariaLabel: str['CT_HRD_STR_Splitter_Back'],
-            ariaDescribedBy: backButtonDescribedBy,
-            click: backButton_onClick,
-            hasFocus: focusOnBackButton" id="idBtn_Back" aria-label="Back">
+        <button
+          type="button"
+          class="backButton"
+          id="idBtn_Back"
+          aria-label="Back"
+          (click)="onBackButtonClick()"
+          >
             <!-- ko ifnot: svr.fIsRTLMarket -->
                 <!-- ko component: 'accessible-image-control' --><!-- ko if: (isHighContrastBlackTheme || hasDarkBackground || svr.fHasBackgroundColor) && !isHighContrastWhiteTheme --><!-- /ko -->
     <!-- ko if: (isHighContrastWhiteTheme || (!hasDarkBackground && !svr.fHasBackgroundColor)) && !isHighContrastBlackTheme -->
@@ -395,7 +399,7 @@
     </div>
 
       <div
-        *ngIf="false"
+        *ngIf="!isAccountSelected"
         class="pagination-view animate slide-in-next"
       >
   
@@ -483,7 +487,7 @@
                       forgetComplete: $parent.tile_onForgetComplete } },
                   css: { 'binaryChoice list': svr.fSupportWindowsStyles }"><!--  -->
   
-  <div class="row tile" role="listitem">
+  <div class="row tile" role="listitem" (click)="onAccountSelected()">
       <div class="table" tabindex="0" role="button" data-bind="
           attr: {
               'data-test-id': session.unsafe_name,
@@ -531,7 +535,7 @@
                       'data-test-id': session.unsafe_name + '-menu-dots',
                       'data-test-idp': session.idp,
                       'aria-controls': 'tileMenu' + tileIndex,
-                      'aria-expanded': menuOpen().toString() }" aria-label="Open menu" data-test-id="jeonghun.lee01@student.csulb.edu-menu-dots" data-test-idp="0" aria-controls="tileMenu0" aria-expanded="false">
+                      'aria-expanded': menuOpen().toString() }" aria-label="Open menu" data-test-idp="0" aria-controls="tileMenu0" aria-expanded="false">
   
               <!-- ko component: 'accessible-image-control' --><!-- ko if: (isHighContrastBlackTheme || hasDarkBackground || svr.fHasBackgroundColor) && !isHighContrastWhiteTheme --><!-- /ko -->
   <!-- ko if: (isHighContrastWhiteTheme || (!hasDarkBackground && !svr.fHasBackgroundColor)) && !isHighContrastBlackTheme -->
